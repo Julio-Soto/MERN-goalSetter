@@ -5,9 +5,9 @@ const Goal = require('../model/goalModel')
 // @Route GET /api/goals
 // @access Private
 const getGoals = asyncHandler(async (req,res) => {
-        const goals = await Goal.find()
+    const goals = await Goal.find()
 
-        res.status(200).json(goals)
+    res.status(200).json(goals)
 })
 
 // @desc Set Goal
@@ -19,9 +19,9 @@ const setGoal = asyncHandler(async (req,res) => {
         throw new Error('Please add a text field to your request.') 
     }
 
-const goal = await Goal.create({
-    text: req.body.text
-})
+    const goal = await Goal.create({
+         text: req.body.text
+    })
 
     res.status(200).json(goal)
 })
