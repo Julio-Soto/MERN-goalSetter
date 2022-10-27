@@ -1,5 +1,6 @@
 const asyncHandler = require('express-async-handler')
 const Goal = require('../model/goalModel')
+const User = require('../model/userModel')
 
 // @desc Get Goals
 // @Route GET /api/goals
@@ -37,6 +38,8 @@ const updateGoal = asyncHandler(async (req,res) => {
         res.status(400)
         throw new Error('Goal Not Found')
     }
+
+    const user = await User.findById(req.user.id)
 
     updatedGoal = await Goal.findByIdAndUpdate(req.params.id, req.body,{new: true})
 
