@@ -40,8 +40,17 @@ const updateGoal = asyncHandler(async (req,res) => {
     }
 
     const user = await User.findById(req.user.id)
+    if(!user){
+        res.status(401)
+        throw new Error('User Not Found!')
+    }
 
-    updatedGoal = await Goal.findByIdAndUpdate(req.params.id, req.body,{new: true})
+    if(goal.user.toString() != user.id){
+        res.status(401)
+        throw new Error('User Not Authorized!')
+    }
+
+    const updatedGoal = await Goal.findByIdAndUpdate(req.params.id, req.body,{new: true})
 
     res.status(200).json(updatedGoal)
 })
